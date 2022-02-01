@@ -115,7 +115,7 @@ static const struct SMPTETimeZonesStruct smpte_time_zones[] =
 static void smpte_set_timezone_string(LTCFrame *frame, SMPTETimecode *stime) {
 	int i = 0;
 
-	const unsigned char code = frame->user7 + (frame->user8 << 4);
+	const unsigned char code = frame->user1 + (frame->user2 << 4);
 
 	char timezone[6] = "+0000";
 
@@ -167,9 +167,9 @@ void ltc_frame_to_time(SMPTETimecode *stime, LTCFrame *frame, int flags) {
 	if (flags & LTC_USE_DATE) {
 		smpte_set_timezone_string(frame, stime);
 
-		stime->years  = frame->user5 + frame->user6*10;
-		stime->months = frame->user3 + frame->user4*10;
-		stime->days   = frame->user1 + frame->user2*10;
+		stime->years  = frame->user3 + frame->user4*10;
+		stime->months = frame->user5 + frame->user6*10;
+		stime->days   = frame->user7 + frame->user8*10;
 	} else {
 		stime->years  = 0;
 		stime->months = 0;
